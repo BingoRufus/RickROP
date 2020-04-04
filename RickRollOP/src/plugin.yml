@@ -1,13 +1,13 @@
 name: RickROP
 main: me.BingoRufus.RickROP.Main
-version: 1.0.1
+descripton: Rick Roll Players Asking for OP
+version: 1.2.0
 api-version: 1.13
 author: BingoRufus
-descripton: Rick Roll Players Asking for OP
 commands:
-  rickroll:
-    description: Rick Roll players yourself
-    usage: /<command> [<player>]
+  rickrop:
+    description: Commands for RickROP
+
 permissions:
   rickrop.*:
    description: Parent to all RickROP nodes
@@ -17,4 +17,7 @@ permissions:
        default: false
      rickrop.exclude:
        description: Excludes players from being Rick Rolled
+       default: false
+     rickrop.reload:
+       description: Reload the Config
        default: false
