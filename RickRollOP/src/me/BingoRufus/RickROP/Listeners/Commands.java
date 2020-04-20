@@ -126,7 +126,6 @@ public class Commands implements CommandExecutor {
 					}
 				}
 				if (args[0].equalsIgnoreCase("random")) {
-
 					if (!(sender.hasPermission("rickrop.play.random"))) {
 						sender.sendMessage(ChatColor.RED + "You do not have permission to do that!");
 						return true;
