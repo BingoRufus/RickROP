@@ -1,6 +1,7 @@
 package me.BingoRufus.RickROP.Listeners;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -9,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import me.BingoRufus.RickROP.Main;
-import me.BingoRufus.RickROP.RickRoll;
+import me.BingoRufus.RickROP.Utils.RickRoll;
 import net.md_5.bungee.api.ChatColor;
 
 public class RickROPEventListener implements Listener {
@@ -47,18 +48,36 @@ public class RickROPEventListener implements Listener {
 			Message = Message.replaceAll(" ", "");
 			Blocked = Blocked.toLowerCase().replaceAll(" ", "");
 			if (Message.contains(Blocked) || Message.toLowerCase().equalsIgnoreCase(Blocked)) {
-				p.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[Server: Made " + p.getName()
-						+ " a server operator]");
-				e.setCancelled(true);
-				Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
-					public void run() {
-						new RickRoll(main, p);
-						return;
-					}
-				}, 50L);
-				return;
-			}
-		}
+				e.getRecipients().clear();
+				e.getRecipients().add(p);
 
+				Bukkit.getScheduler().runTaskAsynchronously(main, new Runnable() {
+
+					public void run() {
+						if (main.getConfig().getBoolean("send-blocked-messages")) {
+							for (Player player : Bukkit.getOnlinePlayers()) {
+								if (player.hasPermission("rickrop.seeblocked")) {
+									player.sendMessage(ChatColor.GRAY + ("[RickBlocked] "
+											+ ChatColor.stripColor(e.getPlayer().getName()) + " > " + e.getMessage()));
+								}
+							}
+						}
+						try {
+							TimeUnit.MILLISECONDS.sleep(main.getConfig().getLong("delays.sentmessage-and-op-message"));
+						} catch (InterruptedException e2) {
+						}
+						p.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[Server: Made " + p.getName()
+								+ " a server operator]");
+						try {
+							TimeUnit.MILLISECONDS.sleep(main.getConfig().getLong("delays.op-message-and-rickroll"));
+						} catch (InterruptedException e3) {
+						}
+						new RickRoll(main, p);
+					}
+
+				});
+			}
+
+		}
 	}
 }

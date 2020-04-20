@@ -1,7 +1,7 @@
 name: RickROP
 main: me.BingoRufus.RickROP.Main
 descripton: Rick Roll Players Asking for OP
-version: 1.2.0
+version: 1.2.1
 api-version: 1.13
 author: BingoRufus
 commands:
@@ -12,12 +12,25 @@ permissions:
   rickrop.*:
    description: Parent to all RickROP nodes
    children:
-     rickrop.command:
-       description: Rick Roll the players yourself
+     rickrop.play.*:
+       description: Play RickROP songs
        default: false
+       children:
+         rickrop.play.rickroll:
+           description: Rickroll players
+           default: false
+         rickrop.play.crabrave:
+           description: Play Crabrave
+           default: false
+         rickrop.play.random:
+           description: Play a random RickROP song
+           default: false
      rickrop.exclude:
        description: Excludes players from being Rick Rolled
        default: false
      rickrop.reload:
        description: Reload the Config
+       default: false
+     rickrop.seeblocked:
+       description: See Blocked Messages
        default: false

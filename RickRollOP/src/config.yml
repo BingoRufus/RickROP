@@ -1,3 +1,8 @@
+disable-update-checking: false
+delays:
+   sentmessage-and-op-message: 0 #In MicroSeconds, there are 1000 MicroSeconds in a second
+   op-message-and-rickroll: 2500 #In MicroSeconds, there are 1000 MicroSeconds in a second
+send-blocked-messages: true #Show messages to players with permission for it
 #Seperate all blocked messages  with a '-' before it
 #Note: it is NOT case sensitive
 #The Rick Roll will trigger if a Player message contains a blocked message. 

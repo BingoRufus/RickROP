@@ -1,4 +1,4 @@
-package me.BingoRufus.RickROP;
+package me.BingoRufus.RickROP.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -7,6 +7,8 @@ import org.bukkit.Instrument;
 import org.bukkit.Note;
 import org.bukkit.Note.Tone;
 import org.bukkit.entity.Player;
+
+import me.BingoRufus.RickROP.Main;
 
 public class RickRoll {
 	public void pause(double d) {
