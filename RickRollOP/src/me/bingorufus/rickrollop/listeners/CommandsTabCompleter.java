@@ -1,6 +1,7 @@
-package me.BingoRufus.RickROP.Listeners;
+package me.bingorufus.rickrollop.listeners;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -14,19 +15,20 @@ public class CommandsTabCompleter implements TabCompleter {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+		List<String> Songs = Arrays.asList("rickroll", "random", "crabrave", "fireball");
 		if (SubCommands.isEmpty()) {
 			SubCommands.add("rickroll");
 			SubCommands.add("crabrave");
 			SubCommands.add("reload");
 			SubCommands.add("help");
 			SubCommands.add("random");
+			SubCommands.add("fireball");
 
 		}
 		List<String> result = new ArrayList<String>();
 
 		if (args.length >= 1) {
-			if (args[0].equalsIgnoreCase("rickroll") || args[0].equalsIgnoreCase("crabrave")
-					|| args[0].equalsIgnoreCase("random")) {
+			if (Songs.contains(args[0].toLowerCase())) {
 
 				List<String> OnlinePlayers = new ArrayList<String>();
 				for (Player p : Bukkit.getOnlinePlayers()) {

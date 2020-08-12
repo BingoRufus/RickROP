@@ -1,4 +1,4 @@
-package me.BingoRufus.RickROP.Utils;
+package me.bingorufus.rickrollop.utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -8,7 +8,8 @@ import org.bukkit.Note;
 import org.bukkit.Note.Tone;
 import org.bukkit.entity.Player;
 
-import me.BingoRufus.RickROP.Main;
+import me.bingorufus.rickrollop.RickROP;
+
 
 public class CrabRave {
 	public void pause(double d) {
@@ -19,9 +20,12 @@ public class CrabRave {
 		}
 	}
 
-	public CrabRave(Main m, Player playr) {
+	public CrabRave(RickROP m, Player playr) {
 
 		Player p = playr;
+		if (m.PlayingSong.contains(p))
+			return;
+		m.PlayingSong.add(p);
 		Bukkit.getScheduler().runTaskAsynchronously(m, new Runnable() {
 			public void run() {
 				p.playNote(p.getLocation(), Instrument.IRON_XYLOPHONE, Note.natural(1, Tone.D));
@@ -127,7 +131,7 @@ public class CrabRave {
 				p.playNote(p.getLocation(), Instrument.IRON_XYLOPHONE, Note.natural(1, Tone.F));
 				pause(2);
 				p.playNote(p.getLocation(), Instrument.IRON_XYLOPHONE, Note.natural(1, Tone.E));
-
+				m.PlayingSong.remove(p);
 			}
 		});
 

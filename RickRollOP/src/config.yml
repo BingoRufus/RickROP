@@ -16,6 +16,7 @@ blocked-messages:
 - I Want OP
 - Op please
 - Please Op
+- Op me
 # Replacements
 #If Operator:Op is added and Give me Op is blocked, if somebody types Give Me Operator. The message will be blocked.
 synonyms:
@@ -25,3 +26,4 @@ synonyms:
 - 0:O
 - 1:L
 - 3:E
+- me:i

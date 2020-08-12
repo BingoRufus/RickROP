@@ -1,4 +1,4 @@
-package me.BingoRufus.RickROP.Utils;
+package me.bingorufus.rickrollop.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,14 +8,14 @@ import java.util.function.Consumer;
 
 import org.bukkit.Bukkit;
 
-import me.BingoRufus.RickROP.Main;
+import me.bingorufus.rickrollop.RickROP;
 
 public class UpdateChecker {
 
-	private Main plugin;
+	private RickROP plugin;
 	private Integer id;
 
-	public UpdateChecker(Main m, Integer i) {
+	public UpdateChecker(RickROP m, Integer i) {
 		this.plugin = m;
 		this.id = i;
 	}

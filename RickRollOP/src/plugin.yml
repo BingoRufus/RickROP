@@ -1,7 +1,7 @@
 name: RickROP
-main: me.BingoRufus.RickROP.Main
+main: me.bingorufus.rickrollop.RickROP
 description: Rick Roll Players Asking for OP
-version: 1.3.0
+version: 1.3.1
 api-version: 1.13
 author: BingoRufus
 commands:
@@ -21,6 +21,9 @@ permissions:
            default: false
          rickrop.play.crabrave:
            description: Play Crabrave
+           default: false
+         rickrop.play.fireball:
+           description: Play Fireball
            default: false
          rickrop.play.random:
            description: Play a random RickROP song

@@ -1,34 +1,36 @@
-package me.BingoRufus.RickROP;
+package me.bingorufus.rickrollop;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.BingoRufus.RickROP.Listeners.Commands;
-import me.BingoRufus.RickROP.Listeners.CommandsTabCompleter;
-import me.BingoRufus.RickROP.Listeners.NewVersionDisplayer;
-import me.BingoRufus.RickROP.Listeners.RickROPEventListener;
-import me.BingoRufus.RickROP.Utils.Metrics;
-import me.BingoRufus.RickROP.Utils.RickRoll;
-import me.BingoRufus.RickROP.Utils.UpdateChecker;
+import me.bingorufus.rickrollop.listeners.Commands;
+import me.bingorufus.rickrollop.listeners.CommandsTabCompleter;
+import me.bingorufus.rickrollop.listeners.NewVersionDisplayer;
+import me.bingorufus.rickrollop.listeners.RickROPEventListener;
+import me.bingorufus.rickrollop.utils.Metrics;
+import me.bingorufus.rickrollop.utils.RickRoll;
+import me.bingorufus.rickrollop.utils.UpdateChecker;
 
-public class Main extends JavaPlugin implements Listener {
+public class RickROP extends JavaPlugin implements Listener {
 	public RickRoll play;
 	NewVersionDisplayer NewVer;
 	List<String> BlockedMessages = new ArrayList<String>();
 	String[][] Replacements;
+	public List<Player> PlayingSong = new ArrayList<Player>();
 
-	public Main main;
+	public RickROP rickROP;
 
 	@Override
 	public void onEnable() {
 
 		new Metrics(this, 7239);
-		main = this;
+		rickROP = this;
 		this.saveDefaultConfig();
 		this.reloadConfig();
 
@@ -51,15 +53,15 @@ public class Main extends JavaPlugin implements Listener {
 			BlockedMessages.clear();
 		if (NewVer != null)
 			HandlerList.unregisterAll(NewVer);
-		if (!main.getConfig().getBoolean("disable-update-checking")) {
-			new UpdateChecker(main, 76422).getLatestVersion(version -> {
+		if (!rickROP.getConfig().getBoolean("disable-update-checking")) {
+			new UpdateChecker(rickROP, 76422).getLatestVersion(version -> {
 
 				if (UpToDate(this.getDescription().getVersion().split("[.]"), version.split("[.]"))) {
 					this.getLogger().info("RickROP is up to date");
 				} else {
 
 					this.getLogger().warning("RickROP is currently running version "
-							+ main.getDescription().getVersion() + " and can be updated to " + version);
+							+ rickROP.getDescription().getVersion() + " and can be updated to " + version);
 					this.getLogger().warning(
 							"Download the newest version at: https://www.spigotmc.org/resources/rickrop.76422/");
 					NewVer = new NewVersionDisplayer(this, this.getDescription().getVersion(), version);
@@ -76,7 +78,7 @@ public class Main extends JavaPlugin implements Listener {
 			Replacements[length] = syns.get(length).split(":");
 
 		}
-		Bukkit.getPluginManager().registerEvents(new RickROPEventListener(main, BlockedMessages, Replacements), main);
+		Bukkit.getPluginManager().registerEvents(new RickROPEventListener(rickROP, BlockedMessages, Replacements), rickROP);
 	}
 
 	public Boolean UpToDate(String cur[], String upd[]) {

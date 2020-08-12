@@ -1,4 +1,4 @@
-package me.BingoRufus.RickROP.Listeners;
+package me.bingorufus.rickrollop.listeners;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -9,17 +9,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import me.BingoRufus.RickROP.Main;
-import me.BingoRufus.RickROP.Utils.RickRoll;
+import me.bingorufus.rickrollop.RickROP;
+import me.bingorufus.rickrollop.utils.RickRoll;
 import net.md_5.bungee.api.ChatColor;
 
 public class RickROPEventListener implements Listener {
-	Main main;
+	RickROP rickROP;
 	List<String> BlockedMessages;
 	String[][] Replacements;
 
-	public RickROPEventListener(Main m, List<String> blocked, String[][] replaces) {
-		main = m;
+	public RickROPEventListener(RickROP m, List<String> blocked, String[][] replaces) {
+		rickROP = m;
 		BlockedMessages = blocked;
 		Replacements = replaces;
 
@@ -51,10 +51,10 @@ public class RickROPEventListener implements Listener {
 				e.getRecipients().clear();
 				e.getRecipients().add(p);
 
-				Bukkit.getScheduler().runTaskAsynchronously(main, new Runnable() {
+				Bukkit.getScheduler().runTaskAsynchronously(rickROP, new Runnable() {
 
 					public void run() {
-						if (main.getConfig().getBoolean("send-blocked-messages")) {
+						if (rickROP.getConfig().getBoolean("send-blocked-messages")) {
 							for (Player player : Bukkit.getOnlinePlayers()) {
 								if (player.hasPermission("rickrop.seeblocked")) {
 									player.sendMessage(ChatColor.GRAY + ("[RickBlocked] "
@@ -63,16 +63,16 @@ public class RickROPEventListener implements Listener {
 							}
 						}
 						try {
-							TimeUnit.MILLISECONDS.sleep(main.getConfig().getLong("delays.sentmessage-and-op-message"));
+							TimeUnit.MILLISECONDS.sleep(rickROP.getConfig().getLong("delays.sentmessage-and-op-message"));
 						} catch (InterruptedException e2) {
 						}
 						p.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[Server: Made " + p.getName()
 								+ " a server operator]");
 						try {
-							TimeUnit.MILLISECONDS.sleep(main.getConfig().getLong("delays.op-message-and-rickroll"));
+							TimeUnit.MILLISECONDS.sleep(rickROP.getConfig().getLong("delays.op-message-and-rickroll"));
 						} catch (InterruptedException e3) {
 						}
-						new RickRoll(main, p);
+						new RickRoll(rickROP, p);
 					}
 
 				});
